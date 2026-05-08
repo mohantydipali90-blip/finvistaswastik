@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
+    <title>FinVista Royal | Indian AI Fintech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f6faf8;
+            --bg-secondary: #eaf1ed;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-primary: #1a2c2e;
+            --text-secondary: #1e4a3b;
+            --text-muted: rgba(26, 44, 46, 0.6);
+            --text-inverse: #f7f3ea;
+            --input-bg: #ffffff;
+            --input-border: rgba(46, 125, 50, 0.2);
+            --tip-bg: #e5f5e6;
+            --footer-bg: #0b2b1f;
+            --border-light: rgba(46, 125, 50, 0.15);
+            --shadow: 0 18px 32px -12px rgba(0, 32, 0, 0.10);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(26, 44, 46, 0.08);
+            --emerald: #0f7d4a;
+            --emerald-dark: #0a5e36;
+            --emerald-light: #1aa862;
+            --gold: #d4a853;
+            --gold-light: #f0d48a;
+            --saffron: #f5a623;
+            --navy: #0b1a1e;
+            --black: #070d0f;
+            --ivory: #f7f3ea;
+            --shadow-card: 0 30px 60px -20px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 50px rgba(15, 125, 74, 0.06);
+            --radius-lg: 32px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
+            --radius-xl: 48px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --sidebar-bg: rgba(255, 255, 255, 0.96);
+            --sidebar-text: #1a2c2e;
+            --sidebar-border: rgba(46, 125, 50, 0.10);
+            --nav-bg: rgba(255, 255, 255, 0.96);
+            --nav-text: #1a2c2e;
+            --hero-overlay: rgba(255, 255, 255, 0.85);
+            --chart-grid: rgba(26, 44, 46, 0.06);
+            --chart-text: rgba(26, 44, 46, 0.4);
+            --modal-bg: rgba(255, 255, 255, 0.98);
+        }
+
+        body.dark {
+            --bg-primary: #070d0f;
+            --bg-secondary: #0b1a1e;
+            --card-bg: rgba(20, 32, 26, 0.96);
+            --text-primary: #dcfce8;
+            --text-secondary: #b9e6cf;
+            --text-muted: rgba(220, 252, 232, 0.5);
+            --text-inverse: #1a2c2e;
+            --input-bg: #1c2f27;
+            --input-border: rgba(46, 125, 50, 0.25);
+            --tip-bg: #0f241c;
+            --footer-bg: #061a11;
+            --border-light: rgba(46, 125, 50, 0.15);
+            --shadow: 0 18px 32px -12px rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --shadow-card: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+            --shadow-glow: 0 0 50px rgba(15, 125, 74, 0.12);
+            --sidebar-bg: rgba(7, 13, 15, 0.96);
+            --sidebar-text: #dcfce8;
+            --sidebar-border: rgba(255, 255, 255, 0.06);
+            --nav-bg: rgba(7, 13, 15, 0.96);
+            --nav-text: #dcfce8;
+            --hero-overlay: rgba(7, 13, 15, 0.85);
+            --chart-grid: rgba(255, 255, 255, 0.05);
+            --chart-text: rgba(255, 255, 255, 0.3);
+            --modal-bg: rgba(7, 13, 15, 0.98);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--emerald);
+            border-radius: 20px;
+        }
+
+        /* ── ANIMATED BG PARTICLES ── */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+
+        /* ── LAYOUT ── */
+        .app-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-right: 1px solid var(--sidebar-border);
+            padding: 28px 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition);
+            overflow-y: auto;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--sidebar-border);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-brand .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--emerald), var(--gold));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--text-inverse);
+            box-shadow: 0 8px 24px rgba(15, 125, 74, 0.3);
+        }
+
+        .sidebar-brand h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-brand .tag {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            background: rgba(212, 168, 83, 0.12);
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-weight: 600;
+            -webkit-text-fill-color: var(--gold);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .sidebar-nav a i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--text-primary);
+            background: rgba(15, 125, 74, 0.08);
+        }
+
+        .sidebar-nav a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 28px;
+            border-radius: 0 6px 6px 0;
+            background: linear-gradient(to bottom, var(--emerald), var(--gold));
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--sidebar-border);
+            padding-top: 20px;
+            margin-top: auto;
+        }
+
+        .sidebar-footer .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            background: rgba(15, 125, 74, 0.06);
+        }
+
+        .sidebar-footer .user-badge .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--emerald), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-inverse);
+        }
+
+        .sidebar-footer .user-badge .user-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .sidebar-footer .user-badge .user-role {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* ── SIDEBAR TOGGLE (mobile) ── */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 1100;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--emerald);
+            color: var(--text-inverse);
+            transform: scale(1.05);
+        }
+
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 28px 36px 60px;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        /* ── TOP BAR ── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .topbar-left h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .topbar-left p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .topbar-right .action-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-right .action-btn:hover {
+            background: var(--emerald);
+            color: var(--text-inverse);
+            transform: scale(1.05);
+            border-color: var(--emerald);
+        }
+
+        .topbar-right .auth-btn {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: var(--text-inverse);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-right .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(15, 125, 74, 0.35);
+        }
+
+        /* ── HERO SECTION ── */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary)),
+                radial-gradient(ellipse at 30% 40%, rgba(15, 125, 74, 0.08), transparent 70%);
+            border-radius: var(--radius-lg);
+            padding: 48px 56px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 168, 83, 0.04), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--emerald-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .hero-stat .number:hover {
+            transform: scale(1.08);
+            text-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
+        }
+
+        .hero-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .hero-visual .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 28px 32px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            transition: all var(--transition);
+        }
+
+        .hero-visual .glass-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-visual .glass-card .big-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--gold), var(--emerald-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-visual .glass-card .sub-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .hero-visual .glass-card .trend {
+            display: inline-block;
+            background: rgba(15, 125, 74, 0.12);
+            color: var(--emerald-light);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 8px;
+            transition: all 0.3s;
+        }
+
+        .hero-visual .glass-card .trend:hover {
+            background: rgba(15, 125, 74, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* ── CARDS (glassmorphism) ── */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 28px 30px;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardFadeIn 0.7s ease forwards;
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        .card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.15), transparent);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(15, 125, 74, 0.15);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .card .card-header i {
+            font-size: 1.4rem;
+            color: var(--gold);
+            background: rgba(212, 168, 83, 0.08);
+            padding: 10px;
+            border-radius: 14px;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-header i {
+            transform: rotate(6deg) scale(1.05);
+        }
+
+        .card .card-header h3 {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+        }
+
+        .card .card-header .badge {
+            margin-left: auto;
+            background: rgba(15, 125, 74, 0.10);
+            color: var(--emerald-light);
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-header .badge {
+            background: rgba(15, 125, 74, 0.18);
+        }
+
+        /* ── GRID SYSTEM ── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 28px;
+            margin: 28px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin: 28px 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 28px 0;
+        }
+
+        /* ── SECTION TITLES ── */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 44px 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-primary);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section-title i {
+            color: var(--gold);
+            font-size: 1.4rem;
+            transition: all 0.3s;
+        }
+
+        .section-title:hover i {
+            transform: rotate(12deg) scale(1.1);
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-light), transparent);
+        }
+
+        /* ── FORM ELEMENTS ── */
+        input,
+        select {
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            width: 100%;
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            margin-bottom: 12px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px rgba(15, 125, 74, 0.12);
+            background: var(--input-bg);
+            transform: scale(1.01);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: var(--text-inverse);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(15, 125, 74, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border-light);
+            color: var(--text-primary);
+            padding: 10px 22px;
+            border-radius: 60px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font);
+            font-size: 0.85rem;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--emerald);
+            background: rgba(15, 125, 74, 0.06);
+            color: var(--emerald-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #b8923a);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: var(--text-inverse);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 0.85rem;
+            font-family: var(--font);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212, 168, 83, 0.3);
+        }
+
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            border-radius: 40px;
+            background: rgba(15, 125, 74, 0.08);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font);
+        }
+
+        .btn-sm:hover {
+            background: var(--emerald);
+            border-color: var(--emerald);
+            color: var(--text-inverse);
+            transform: scale(1.05);
+        }
+
+        .btn-danger {
+            background: rgba(224, 90, 90, 0.10);
+            border: 1px solid rgba(224, 90, 90, 0.15);
+            color: #e05a5a;
+            padding: 4px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font);
+            font-size: 0.75rem;
+        }
+
+        .btn-danger:hover {
+            background: rgba(224, 90, 90, 0.18);
+            transform: scale(1.05);
+        }
+
+        /* ── HIGHLIGHT NUMBERS ── */
+        .highlight-number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: -0.5px;
+            transition: all 0.3s;
+        }
+
+        .highlight-number:hover {
+            transform: scale(1.04);
+            text-shadow: 0 0 15px rgba(212, 168, 83, 0.2);
+        }
+
+        /* ── PROGRESS BAR ── */
+        .progress-bar {
+            background: var(--bg-secondary);
+            border-radius: 40px;
+            height: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--emerald), var(--gold));
+            width: 0%;
+            height: 100%;
+            transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 40px;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmerProgress 2s infinite;
+        }
+
+        @keyframes shimmerProgress {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* ── INSIGHT BOX ── */
+        .insight-text {
+            background: rgba(15, 125, 74, 0.05);
+            border-left: 3px solid var(--emerald);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .insight-text:hover {
+            background: rgba(15, 125, 74, 0.08);
+            transform: translateX(4px);
+        }
+
+        .insight-text strong {
+            color: var(--text-primary);
+        }
+
+        .insight-text.gold-border {
+            border-left-color: var(--gold);
+            background: rgba(212, 168, 83, 0.04);
+        }
+
+        /* ── TABLE ── */
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .stock-table th {
+            text-align: left;
+            padding: 12px 6px 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .stock-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .stock-table tr:hover td {
+            background: rgba(15, 125, 74, 0.03);
+            transform: scale(1.005);
+        }
+
+        .profit {
+            color: var(--emerald-light);
+            font-weight: 600;
+        }
+        .loss {
+            color: #e05a5a;
+            font-weight: 600;
+        }
+
+        /* ── HEALTH SCORE ── */
+        .health-score-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: var(--tip-bg);
+            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid var(--border-light);
+            position: relative;
+            transition: all 0.5s;
+        }
+
+        .health-score-circle:hover {
+            transform: scale(1.04);
+            border-color: var(--gold);
+        }
+
+        .health-score-circle::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(var(--emerald) var(--score, 0%), transparent var(--score, 0%));
+            opacity: 0.12;
+            z-index: -1;
+        }
+
+        .health-score-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            transition: all 0.3s;
+        }
+
+        .health-score-number:hover {
+            transform: scale(1.06);
+        }
+
+        /* ── CHATBOT ── */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 8px 32px rgba(15, 125, 74, 0.3);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+            color: var(--text-inverse);
+            font-size: 1.3rem;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        .chatbot-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 12px 48px rgba(15, 125, 74, 0.5);
+        }
+
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(15, 125, 74, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 48px rgba(15, 125, 74, 0.5), 0 0 60px rgba(15, 125, 74, 0.1);
+            }
+        }
+
+        /* ── MODALS ── */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-card {
+            background: var(--modal-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            max-width: 460px;
+            width: 92%;
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            animation: scaleIn 0.4s ease;
+        }
+
+        .modal-card .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color var(--transition);
+        }
+
+        .modal-card .close-modal:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .modal-card label {
+            color: var(--text-muted);
+        }
+
+        .modal-card input {
+            background: var(--input-bg);
+            border-color: var(--input-border);
+            color: var(--text-primary);
+        }
+
+        .modal-card .link-text {
+            color: var(--gold);
+            cursor: pointer;
+            font-weight: 500;
+            transition: color var(--transition);
+        }
+
+        .modal-card .link-text:hover {
+            color: var(--gold-light);
+            text-decoration: underline;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            padding: 32px 0;
+            margin-top: 60px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        footer:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer i {
+            color: var(--gold);
+            margin-right: 6px;
+        }
+
+        /* ── MONTHLY RECORD ── */
+        .monthly-record {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* ── CANVAS ── */
+        canvas {
+            max-height: 240px;
+            width: 100% !important;
+            margin-top: 12px;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s;
+        }
+
+        canvas:hover {
+            transform: scale(1.005);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-visual .glass-card {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .sidebar-toggle {
+                display: flex;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 18px 18px 40px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .topbar-left h2 {
+                font-size: 1.2rem;
+            }
+            .hero-section {
+                padding: 32px 24px;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .modal-card {
+                padding: 28px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .topbar-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .hero-text h1 {
+                font-size: 1.4rem;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .hero-stat .number {
+                font-size: 1.4rem;
+            }
+            .card {
+                padding: 20px 16px;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .health-score-circle {
+                width: 110px;
+                height: 110px;
+            }
+            .health-score-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* ── UTILITY ── */
+        .mt-2 {
+            margin-top: 12px;
+        }
+        .mb-2 {
+            margin-bottom: 12px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-gold {
+            color: var(--gold);
+        }
+        .text-emerald {
+            color: var(--emerald-light);
+        }
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0.02) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* ── SIDEBAR OVERLAY ── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* ── TIP CARD ── */
+        .tip-card {
+            background: var(--tip-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .tip-card:hover {
+            transform: translateX(6px);
+            border-color: var(--emerald);
+        }
+
+        .tip-card i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        /* ── SIDEBAR BACKDROP ── */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+        }
+
+        .sidebar-backdrop.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── REPORT DOWNLOAD ── */
+        .report-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .report-actions .btn-primary {
+            flex: 1;
+            justify-content: center;
+            min-width: 140px;
+        }
+
+        .report-preview {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-top: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .report-preview strong {
+            color: var(--text-primary);
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── PARTICLES BG ─── -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ─── SIDEBAR BACKDROP ─── -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ─── SIDEBAR TOGGLE ─── -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- ─── SIDEBAR ─── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+            <div>
+                <h1>FinVista</h1>
+                <span class="tag">Royal · AI</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="#stocks"><i class="fas fa-chart-simple"></i> Portfolio</a>
+            <a href="#insights"><i class="fas fa-brain"></i> Insights</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-badge" id="sidebarUserBadge">
+                <div class="avatar" id="sidebarAvatar">G</div>
+                <div>
+                    <div class="user-name" id="sidebarUserName">Guest</div>
+                    <div class="user-role">Investor</div>
+                </div>
+                <i class="fas fa-chevron-right" style="margin-left:auto;opacity:0.3;font-size:0.7rem;"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <div class="main-content" id="mainContent">
+
+        <!-- ─── TOP BAR ─── -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h2>🇮🇳 Wealth Dashboard</h2>
+                <p id="greetingText">Good morning, investor. Your portfolio is up 2.4% today.</p>
+            </div>
+            <div class="topbar-right">
+                <button class="action-btn" id="refreshMarketBtn2" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+                <button class="action-btn" id="themeToggle" title="Theme"><i class="fas fa-moon"></i></button>
+                <button class="auth-btn" id="authMainBtn"><i class="fas fa-user"></i> Sign In</button>
+            </div>
+        </div>
+
+        <!-- ─── HERO ─── -->
+        <section class="hero-section fade-up">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Empower Your <span>Financial Future</span> with AI</h1>
+                    <p>Royal Indian fintech intelligence — track, plan, and grow your wealth with real‑time analytics, smart calculators, and personalized insights.</p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="number" id="heroUsers">12.4K</span>
+                            <span class="label">Active Investors</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="number" id="heroReturns">₹2.8L</span>
+                            <span class="label">Avg. Returns</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="number" id="heroSIP">₹8.2K</span>
+                            <span class="label">Avg. Monthly SIP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="glass-card float-anim">
+                        <div class="big-number" id="heroTotalWealth">₹12,45,200</div>
+                        <div class="sub-text">Total Wealth Under Management</div>
+                        <span class="trend"><i class="fas fa-arrow-up"></i> +18.4% growth</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── TIP ─── -->
+        <div class="tip-card">
+            <i class="fas fa-lightbulb"></i>
+            <strong id="dailyTip">💡 Start early, compound wealth — India's best smallcase returns ~15% historically.</strong>
+        </div>
+
+        <!-- ─── WELCOME ─── -->
+        <div id="personalizedWelcome" style="display:none; background: var(--tip-bg); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 24px; border-left: 3px solid var(--gold);">
+            <i class="fas fa-hand-peace" style="color:var(--gold);"></i>
+            <strong id="welcomeUserMsg" style="color:var(--text-primary);"></strong>
+            <span id="personalizedAdvice" style="color:var(--text-muted); margin-left:8px;"></span>
+        </div>
+
+        <!-- ─── GRID: BUDGET + CI/SI/SWP ─── -->
+        <div class="grid-2">
+
+            <!-- ─── BUDGET ANALYZER ─── -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Budget Analyzer</h3>
+                    <span class="badge">Monthly</span>
+                </div>
+                <div class="input-group">
+                    <label>💰 Monthly Income (₹)</label>
+                    <input type="number" id="incomeInput" value="52000" />
+                </div>
+                <div id="expenseInputs" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 16px;">
+                    <div class="input-group"><label>🏠 Rent</label><input type="number" id="catRent" value="15000" /></div>
+                    <div class="input-group"><label>🍎 Groceries</label><input type="number" id="catGroceries" value="7000" /></div>
+                    <div class="input-group"><label>🚗 Transport</label><input type="number" id="catTransport" value="3000" /></div>
+                    <div class="input-group"><label>💡 Utilities</label><input type="number" id="catUtilities" value="2500" /></div>
+                    <div class="input-group"><label>🎉 Entertainment</label><input type="number" id="catEntertainment" value="3000" /></div>
+                    <div class="input-group"><label>🏦 Savings</label><input type="number" id="catSavings" value="8000" /></div>
+                    <div class="input-group"><label>🛡️ Other</label><input type="number" id="catOther" value="2500" /></div>
+                    <div class="input-group"><label>🏦 EMI / Debt</label><input type="number" id="catEMI" value="4000" /></div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+                    <button class="btn-primary" id="updateBudgetBtn"><i class="fas fa-calculator"></i> Analyze</button>
+                    <button class="btn-outline" id="resetBudgetBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+                </div>
+                <div style="margin-top:16px; display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <div><strong>Total Expenses:</strong> <span id="totalExpenses" class="highlight-number">₹0</span></div>
+                    <div><strong>Remaining:</strong> <span id="remainingBalance" style="font-weight:800; color:var(--emerald-light);">₹0</span></div>
+                </div>
+                <div id="budgetAdvice" class="insight-text" style="margin-top:8px;"></div>
+                <canvas id="expenseChart" height="180"></canvas>
+            </div>
+
+            <!-- ─── CI + SI + SWP ─── -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Wealth Calculators</h3>
+                    <span class="badge">CI · SI · SWP</span>
+                </div>
+
+                <!-- CI -->
+                <div style="border-left:2px solid var(--emerald); padding-left:14px; margin-bottom:20px;">
+                    <h4 style="font-weight:600; font-size:0.95rem; color:var(--emerald-light); margin-bottom:10px;">🔁 Compound Interest + Inflation</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                        <div class="input-group"><label>Principal (₹)</label><input type="number" id="ciPrincipal" value="150000" /></div>
+                        <div class="input-group"><label>Monthly Add (₹)</label><input type="number" id="ciMonthlyAdd" value="5000" /></div>
+                        <div class="input-group"><label>Annual Return (%)</label><input type="number" id="ciReturn" value="12" /></div>
+                        <div class="input-group"><label>Time (Years)</label><input type="number" id="ciYears" value="10" /></div>
+                        <div class="input-group"><label>Inflation (%)</label><input type="number" id="ciInflation" value="6" /></div>
+                        <div class="input-group"><label>Frequency</label>
+                            <select id="ciFreq"><option value="1">Annually</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option></select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="calcCIBtn" style="width:100%; justify-content:center;"><i class="fas fa-calculator"></i> Calculate CI</button>
+                    <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                        <div><strong>Future Value:</strong> <span id="ciFutureVal" class="highlight-number">--</span></div>
+                        <div><strong>Inflation Adj.:</strong> <span id="ciInflationAdjusted" class="highlight-number">--</span></div>
+                        <div style="grid-column:1/-1;"><strong>Total Interest:</strong> <span id="ciInterest" class="text-gold">--</span></div>
+                    </div>
+                </div>
+
+                <hr style="border-color:var(--border-light); margin:18px 0;" />
+
+                <!-- SI -->
+                <div style="border-left:2px solid var(--gold); padding-left:14px; margin-bottom:20px;">
+                    <h4 style="font-weight:600; font-size:0.95rem; color:var(--gold); margin-bottom:10px;">📉 Simple Interest + Inflation</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                        <div class="input-group"><label>Principal (₹)</label><input type="number" id="siPrincipal" value="150000" /></div>
+                        <div class="input-group"><label>Monthly Add (₹)</label><input type="number" id="siMonthlyAdd" value="5000" /></div>
+                        <div class="input-group"><label>Annual Rate (%)</label><input type="number" id="siRate" value="12" /></div>
+                        <div class="input-group"><label>Time (Years)</label><input type="number" id="siYears" value="10" /></div>
+                        <div class="input-group"><label>Inflation (%)</label><input type="number" id="siInflation" value="6" /></div>
+                    </div>
+                    <button class="btn-primary" id="calcSIBtn" style="width:100%; justify-content:center;"><i class="fas fa-calculator"></i> Calculate SI</button>
+                    <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                        <div><strong>Future Value:</strong> <span id="siFutureVal" class="highlight-number">--</span></div>
+                        <div><strong>Inflation Adj.:</strong> <span id="siInflationAdjusted" class="highlight-number">--</span></div>
+                        <div style="grid-column:1/-1;"><strong>Total Interest:</strong> <span id="siInterest" class="text-gold">--</span></div>
+                    </div>
+                </div>
+
+                <hr style="border-color:var(--border-light); margin:18px 0;" />
+
+                <!-- SWP -->
+                <div style="border-left:2px solid #e05a5a; padding-left:14px;">
+                    <h4 style="font-weight:600; font-size:0.95rem; color:#e05a5a; margin-bottom:10px;">🔄 SWP – Systematic Withdrawal</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                        <div class="input-group"><label>Corpus (₹)</label><input type="number" id="swpCorpus" value="5000000" /></div>
+                        <div class="input-group"><label>Monthly Withdrawal (₹)</label><input type="number" id="swpMonthly" value="30000" /></div>
+                        <div class="input-group"><label>Expected Return (%)</label><input type="number" id="swpReturn" value="8" /></div>
+                        <div class="input-group"><label>Period (Years)</label><input type="number" id="swpYears" value="30" /></div>
+                    </div>
+                    <button class="btn-primary" id="calcSWPBtn" style="width:100%; justify-content:center;"><i class="fas fa-sync-alt"></i> Simulate SWP</button>
+                    <div id="swpResult" class="insight-text gold-border" style="margin-top:12px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── GRID: RETIREMENT + DEBT ─── -->
+        <div class="grid-2">
+            <!-- Retirement -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <h3>Smart Retirement Planner</h3>
+                    <span class="badge">Life Goals</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                    <div class="input-group"><label>Current Age</label><input type="number" id="smartCurrAge" value="28" /></div>
+                    <div class="input-group"><label>Retirement Age</label><input type="number" id="smartRetAge" value="60" /></div>
+                    <div class="input-group"><label>Current Savings (₹)</label><input type="number" id="currentRetSavings" value="125000" /></div>
+                    <div class="input-group"><label>Dream Corpus (₹)</label><input type="number" id="dreamCorpus" value="35000000" /></div>
+                    <div class="input-group"><label>Job Profile</label>
+                        <select id="jobProfile"><option>Salaried</option><option>Business</option><option>Freelance</option><option>Student</option></select>
+                    </div>
+                    <div class="input-group"><label>Qualification</label>
+                        <select id="qualification"><option>Graduate</option><option>Postgraduate</option><option>Professional</option><option>High School</option></select>
+                    </div>
+                </div>
+                <button class="btn-primary" id="runSmartPlannerBtn" style="width:100%; justify-content:center;"><i class="fas fa-bolt"></i> Analyze & Guide</button>
+                <div id="smartPlannerResult" style="margin-top:14px; font-size:0.9rem; color:var(--text-secondary);"></div>
+                <div class="progress-bar"><div id="retirementProgressFill" class="progress-fill" style="width:0%;"></div></div>
+                <div id="careerAdvice" class="insight-text"></div>
+            </div>
+
+            <!-- Debt -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <h3>Debt Payoff & Loan Tool</h3>
+                    <span class="badge">Credit Health</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                    <div class="input-group"><label>Total Debt (₹)</label><input id="debtAmount" value="185000" /></div>
+                    <div class="input-group"><label>Annual Rate (%)</label><input id="debtRate" value="18" /></div>
+                    <div class="input-group"><label>Monthly Payment (₹)</label><input id="monthlyPayment" value="7500" /></div>
+                </div>
+                <button class="btn-primary" id="simulateDebtBtn" style="width:100%; justify-content:center;"><i class="fas fa-clock"></i> Simulate Payoff</button>
+                <div style="margin-top:10px; display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <span>Payoff: <strong id="payoffMonths" style="color:var(--gold);">--</strong></span>
+                    <span>Interest: ₹<strong id="totalInterestPaid" style="color:#e05a5a;">--</strong></span>
+                </div>
+                <hr style="border-color:var(--border-light); margin:18px 0;" />
+                <h4 style="font-weight:600; font-size:0.9rem; margin-bottom:10px;">🏠 Loan Affordability</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px 14px;">
+                    <div class="input-group"><label>Loan Amount (₹)</label><input id="loanAmount" value="500000" /></div>
+                    <div class="input-group"><label>Existing Obligations (₹)</label><input id="existingObligation" value="11000" /></div>
+                </div>
+                <button class="btn-outline" id="checkAffordabilityBtn" style="width:100%; justify-content:center;"><i class="fas fa-check-circle"></i> Check Feasibility</button>
+                <div id="affordabilityMsg" class="insight-text gold-border" style="margin-top:10px;"></div>
+            </div>
+        </div>
+
+        <!-- ─── STOCKS ─── -->
+        <div id="stocks">
+            <div class="section-title">
+                <i class="fas fa-chart-simple"></i> Stock Portfolio & Market
+                <span style="font-size:0.7rem; font-weight:400; color:var(--text-muted); margin-left:auto;">Live mock data</span>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Market Performance</h3>
+                        <button class="btn-sm" id="refreshMarketBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    </div>
+                    <canvas id="stockIndexChart" height="180"></canvas>
+                    <p class="text-muted" style="font-size:0.75rem; margin-top:8px;">* Simulated dynamic prices for demo</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-wallet"></i>
+                        <h3>My Portfolio</h3>
+                        <span class="badge" id="portfolioCount">5 stocks</span>
+                    </div>
+                    <table class="stock-table">
+                        <thead><tr><th>Stock</th><th>Shares</th><th>Price</th><th>Value</th><th>Change</th><th></th></tr></thead>
+                        <tbody id="portfolioBody"></tbody>
+                    </table>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; flex-wrap:wrap;">
+                        <strong>Total Value:</strong> <span id="totalPortfolioVal" class="highlight-number">₹0</span>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+                        <input id="newStockSymbol" placeholder="Symbol" style="width:100px; margin:0;" />
+                        <input id="newStockShares" type="number" placeholder="Shares" style="width:80px; margin:0;" />
+                        <button class="btn-sm" id="addStockBtn"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                    <canvas id="portfolioHistoryChart" height="100" style="margin-top:12px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── MONTHLY TRACKER ─── -->
+        <div class="section-title"><i class="fas fa-calendar-alt"></i> Monthly Financial Tracker</div>
+        <div class="card">
+            <div class="monthly-record">
+                <input type="month" id="recordMonth" value="2026-05" style="width:auto; margin:0;" />
+                <button class="btn-primary" id="saveMonthlyRecordBtn"><i class="fas fa-save"></i> Save Month</button>
+                <button class="btn-outline" id="viewRecordsBtn"><i class="fas fa-redo-alt"></i> Refresh History</button>
+            </div>
+            <canvas id="monthlyIncomeExpenseChart" height="180"></canvas>
+            <div id="monthlyRecordsList" style="max-height:180px; overflow-y:auto; margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+            <div class="insight-text"><i class="fas fa-chart-simple"></i> <strong>Double Bar Graph:</strong> Compare monthly Income vs Total Expenses.</div>
+        </div>
+
+        <!-- ─── FINANCIAL HEALTH ─── -->
+        <div class="section-title"><i class="fas fa-heartbeat"></i> Financial Health Radar</div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Health Radar</h3>
+                    <span class="badge">6 dimensions</span>
+                </div>
+                <canvas id="healthRadarChart" height="200"></canvas>
+                <div class="insight-text" id="radarInsight">Based on your savings, debt, and investment metrics.</div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-medal"></i>
+                    <h3>Financial Health Score</h3>
+                    <span class="badge" id="healthScoreLabel">—</span>
+                </div>
+                <div class="health-score-circle">
+                    <span class="health-score-number" id="healthScoreValue">0</span>
+                    <span style="font-size:0.8rem; color:var(--text-muted);">/ 100</span>
+                    <p style="margin-top:6px; font-size:0.7rem; color:var(--text-muted);">Excellent > 80</p>
+                </div>
+                <div class="progress-bar"><div id="healthScoreFill" class="progress-fill" style="width:0%;"></div></div>
+                <div id="healthDetailedAdvice" class="insight-text"></div>
+                <button class="btn-outline" id="refreshHealthBtn" style="width:100%; justify-content:center; margin-top:6px;"><i class="fas fa-sync-alt"></i> Refresh Metrics</button>
+            </div>
+        </div>
+
+        <!-- ─── INSIGHTS ─── -->
+        <div id="insights">
+            <div class="section-title"><i class="fas fa-chart-column"></i> Problems vs Solutions & Growth</div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Before vs After FinVista</h3>
+                        <span class="badge">Actionable</span>
+                    </div>
+                    <canvas id="problemsVsResultsChart" height="180"></canvas>
+                    <div id="problemSolutionText" class="insight-text"><strong>📌 Actionable Advice:</strong> Based on your debt-to-income ratio & savings rate.</div>
+                    <button class="btn-outline" id="refreshInclusionChart" style="width:100%; justify-content:center; margin-top:6px;"><i class="fas fa-sync-alt"></i> Refresh Metrics</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-quote-right"></i>
+                        <h3>Did You Know?</h3>
+                        <span class="badge">Insights</span>
+                    </div>
+                    <div id="factMessage" style="font-size:1rem; font-weight:500; color:var(--gold); padding:8px 0;">~</div>
+                    <button class="btn-outline" id="newFactBtn" style="margin-bottom:12px;"><i class="fas fa-lightbulb"></i> New Fact</button>
+                    <hr style="border-color:var(--border-light);" />
+                    <h4 style="font-weight:600; font-size:0.9rem; margin:12px 0 6px;">🌟 Best Areas to Invest (India 2025)</h4>
+                    <p style="font-size:0.85rem; color:var(--text-muted);">✔️ Index Funds · Flexi-cap MFs · SGB · REITs · PPF/EPF</p>
+                    <hr style="border-color:var(--border-light);" />
+                    <h4 style="font-weight:600; font-size:0.9rem; margin:12px 0 6px;">📰 Stay Updated</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted);">Moneycontrol · SEBI · RBI · Google Finance</p>
+                    <div class="progress-bar"><div id="inclusionProgress" class="progress-fill" style="width:62%;"></div></div>
+                    <p style="font-size:0.75rem; color:var(--text-muted);">🌍 Global financial inclusion +62% since 2011 (World Bank)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── REPORT DOWNLOAD ─── -->
+        <div class="section-title"><i class="fas fa-file-pdf"></i> Finance Report</div>
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-download"></i>
+                <h3>Download Your Financial Report</h3>
+                <span class="badge">PDF · HTML</span>
+            </div>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:12px;">
+                Generate a comprehensive report of your financial health, portfolio, budget, and retirement plan.
+            </p>
+            <div class="report-actions">
+                <button class="btn-primary" id="downloadReportBtn"><i class="fas fa-download"></i> Download Report</button>
+                <button class="btn-outline" id="previewReportBtn"><i class="fas fa-eye"></i> Preview</button>
+            </div>
+            <div id="reportPreview" class="report-preview" style="display:none;"></div>
+        </div>
+
+        <!-- ─── ABOUT ─── -->
+        <div class="section-title"><i class="fas fa-graduation-cap"></i> Financial Literacy & About</div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-header"><i class="fas fa-piggy-bank"></i><h3>50/30/20 Rule</h3></div>
+                <p style="color:var(--text-muted);">Needs 50%, Wants 30%, Savings 20% — a timeless budgeting framework.</p>
+            </div>
+            <div class="card">
+                <div class="card-header"><i class="fas fa-shield-alt"></i><h3>Emergency Fund</h3></div>
+                <p style="color:var(--text-muted);">Cover 6 months of essential expenses. Keep in liquid assets.</p>
+            </div>
+            <div class="card" id="about">
+                <div class="card-header"><i class="fas fa-microchip"></i><h3>About FinVista Pro</h3></div>
+                <p style="color:var(--text-muted);">Built with HTML5, CSS3, JavaScript, Chart.js, Font Awesome, LocalStorage. AI-powered financial inclusion tools, real-time simulations, and privacy-first.</p>
+            </div>
+        </div>
+
+        <!-- ─── FOOTER ─── -->
+        <footer>
+            <div class="container">
+                <i class="fas fa-seedling"></i> FinVista Royal — Empowering India's financial future | ₹ defaults | CI + SI + Inflation + SWP
+            </div>
+        </footer>
+
+    </div><!-- /main-content -->
+
+    <!-- ─── SETTINGS MODAL ─── -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-card">
+            <span class="close-modal" id="closeSettingsBtn">&times;</span>
+            <h3><i class="fas fa-cog" style="margin-right:10px; color:var(--gold);"></i>Preferences</h3>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;">
+                <label style="margin:0; cursor:pointer;"><i class="fas fa-moon"></i> Dark Mode</label>
+                <input type="checkbox" id="darkModeToggle" checked style="width:auto; margin:0;" />
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;">
+                <label style="margin:0; cursor:pointer;"><i class="fas fa-rupee-sign"></i> Currency</label>
+                <select id="currencySelect" style="width:auto; margin:0; padding:6px 14px;">
+                    <option value="₹" selected>₹</option>
+                    <option value="$">$</option>
+                    <option value="€">€</option>
+                </select>
+            </div>
+            <button id="resetAllDataBtn" class="btn-danger" style="width:100%; padding:12px; margin-top:16px; border-radius:60px; font-weight:600;">
+                <i class="fas fa-trash-alt"></i> Reset All Data
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── AUTH MODAL ─── -->
+    <div id="authModal" class="modal">
+        <div class="modal-card">
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <div id="signinForm">
+                <h3><i class="fas fa-sign-in-alt" style="margin-right:10px; color:var(--gold);"></i>Sign In</h3>
+                <div class="input-group"><label>Username</label><input id="loginUsername" placeholder="Enter username" /></div>
+                <div class="input-group"><label>Password</label><input id="loginPassword" type="password" placeholder="Enter password" /></div>
+                <button class="btn-primary" id="doSignInBtn" style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Sign In</button>
+                <div style="margin-top:12px; text-align:center; font-size:0.9rem; color:var(--text-muted);">
+                    No account? <span class="link-text" id="showSignUpLink">Create free account</span>
+                </div>
+            </div>
+            <div id="signupForm" style="display:none;">
+                <h3><i class="fas fa-user-plus" style="margin-right:10px; color:var(--gold);"></i>Join FinVista</h3>
+                <div class="input-group"><label>Username</label><input id="signupUsername" placeholder="Choose a username" /></div>
+                <div class="input-group"><label>Password</label><input id="signupPassword" type="password" placeholder="Min 4 characters" /></div>
+                <button class="btn-primary" id="doSignUpBtn" style="width:100%; justify-content:center;"><i class="fas fa-rocket"></i> Register</button>
+                <div style="margin-top:12px; text-align:center; font-size:0.9rem; color:var(--text-muted);">
+                    Already a member? <span class="link-text" id="showSignInLink">Sign In</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── JAVASCRIPT ─── -->
+    <script>
+        // ─── USER & AUTH ───
+        let currentUser = null,
+            users = [],
+            currency = "₹";
+        let expenseChart = null,
+            stockIndexChart = null,
+            portfolioHistoryChart = null,
+            problemsChart = null,
+            monthlyDoubleChart = null,
+            healthRadarChart = null;
+        let stocksData = [
+            { symbol: "RELIANCE", shares: 10, price: 2845, hist: [2800, 2820, 2835, 2845] },
+            { symbol: "TCS", shares: 6, price: 3980, hist: [3900, 3940, 3960, 3980] },
+            { symbol: "HDFC", shares: 8, price: 1680, hist: [1650, 1665, 1675, 1680] },
+            { symbol: "INFY", shares: 12, price: 1550, hist: [1520, 1535, 1542, 1550] },
+            { symbol: "TATAMOTORS", shares: 15, price: 960, hist: [940, 950, 955, 960] }
+        ];
+        let historySnapshots = [];
+
+        function formatMoney(val) { return currency + val.toFixed(2); }
+
+        function loadUsers() { let s = localStorage.getItem("finvista_users"); if (s) users = JSON.parse(s);
+            else { users = [{ username: "demo", password: "demo123" }];
+                localStorage.setItem("finvista_users", JSON.stringify(users)); } }
+
+        function saveUsers() { localStorage.setItem("finvista_users", JSON.stringify(users)); }
+
+        function setSession(u) { localStorage.setItem("finvista_current_user", u);
+            currentUser = u;
+            updateAuthUI(); }
+
+        function clearSession() { localStorage.removeItem("finvista_current_user");
+            currentUser = null;
+            updateAuthUI();
+            showToast("Signed out"); }
+
+        function updateAuthUI() {
+            const area = document.getElementById("authMainBtn");
+            const welcomeDiv = document.getElementById("personalizedWelcome");
+            const welcomeMsg = document.getElementById("welcomeUserMsg");
+            const sidebarName = document.getElementById("sidebarUserName");
+            const sidebarAvatar = document.getElementById("sidebarAvatar");
+            if (currentUser) {
+                area.innerHTML = '<i class="fas fa-user"></i> ' + currentUser + '  <i class="fas fa-chevron-down" style="font-size:0.7rem;margin-left:4px;"></i>';
+                area.classList.add("auth-btn");
+                area.onclick = () => { if (confirm("Sign out?")) clearSession(); };
+                welcomeDiv.style.display = "block";
+                welcomeMsg.innerHTML = `Welcome back, ${currentUser}! 💚`;
+                sidebarName.textContent = currentUser;
+                sidebarAvatar.textContent = currentUser.charAt(0).toUpperCase();
+                document.getElementById("personalizedAdvice").textContent = "Your financial journey is on track.";
+            } else {
+                area.innerHTML = '<i class="fas fa-user"></i> Sign In';
+                area.classList.add("auth-btn");
+                area.onclick = () => openModal("signin");
+                welcomeDiv.style.display = "none";
+                sidebarName.textContent = "Guest";
+                sidebarAvatar.textContent = "G";
+            }
+        }
+
+        function openModal(mode) {
+            const sIn = document.getElementById("signinForm"),
+                sUp = document.getElementById("signupForm");
+            sIn.style.display = mode === "signin" ? "block" : "none";
+            sUp.style.display = mode === "signup" ? "block" : "none";
+            document.getElementById("authModal").style.display = "flex";
+        }
+
+        function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+        function showToast(msg) {
+            let t = document.createElement("div");
+            t.innerText = msg;
+            t.style.cssText =
+                `position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--emerald),var(--emerald-dark));color:white;padding:10px 28px;border-radius:60px;z-index:9999;font-weight:500;box-shadow:0 8px 32px rgba(15,125,74,0.3);border:1px solid var(--border-light);backdrop-filter:blur(12px);`;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2800);
+        }
+
+        // ─── COMPOUND INTEREST ───
+        function calcCompoundInterest() {
+            let p = +document.getElementById('ciPrincipal').value || 0;
+            let monthlyAdd = +document.getElementById('ciMonthlyAdd').value || 0;
+            let ret = +document.getElementById('ciReturn').value || 0;
+            let years = +document.getElementById('ciYears').value || 0;
+            let n = +document.getElementById('ciFreq').value || 1;
+            let infl = +document.getElementById('ciInflation').value || 0;
+            let mr = ret / 100 / n;
+            let periods = n * years;
+            let fvLump = p * Math.pow(1 + mr, periods);
+            let fvSIP = monthlyAdd * ((Math.pow(1 + mr, periods) - 1) / mr) * (1 + mr);
+            let total = fvLump + fvSIP;
+            let invested = p + (monthlyAdd * years * 12);
+            let inflationFactor = Math.pow(1 + infl / 100, years);
+            let realValue = total / inflationFactor;
+            document.getElementById('ciFutureVal').innerHTML = formatMoney(total);
+            document.getElementById('ciInflationAdjusted').innerHTML = formatMoney(realValue);
+            document.getElementById('ciInterest').innerHTML = formatMoney(total - invested);
+        }
+
+        // ─── SIMPLE INTEREST ───
+        function calcSimpleInterest() {
+            let p = +document.getElementById('siPrincipal').value || 0;
+            let monthlyAdd = +document.getElementById('siMonthlyAdd').value || 0;
+            let rate = +document.getElementById('siRate').value || 0;
+            let years = +document.getElementById('siYears').value || 0;
+            let infl = +document.getElementById('siInflation').value || 0;
+            let totalPrincipal = p + (monthlyAdd * 12 * years);
+            let simpleInterest = totalPrincipal * (rate / 100) * years;
+            let total = totalPrincipal + simpleInterest;
+            let inflationFactor = Math.pow(1 + infl / 100, years);
+            let realValue = total / inflationFactor;
+            document.getElementById('siFutureVal').innerHTML = formatMoney(total);
+            document.getElementById('siInflationAdjusted').innerHTML = formatMoney(realValue);
+            document.getElementById('siInterest').innerHTML = formatMoney(simpleInterest);
+        }
+
+        // ─── SWP ───
+        function calcSWP() {
+            let corpus = +document.getElementById('swpCorpus').value || 0;
+            let monthlyWithdraw = +document.getElementById('swpMonthly').value || 0;
+            let annualReturn = +document.getElementById('swpReturn').value || 0;
+            let years = +document.getElementById('swpYears').value || 0;
+            if (corpus <= 0 || monthlyWithdraw <= 0 || annualReturn <= 0 || years <= 0) {
+                document.getElementById('swpResult').innerHTML = "⚠️ Please fill all fields with positive values.";
+                return;
+            }
+            let monthlyRate = annualReturn / 12 / 100;
+            let months = years * 12;
+            let balance = corpus;
+            let exhaustedMonth = null;
+            for (let i = 1; i <= months; i++) {
+                balance = balance * (1 + monthlyRate) - monthlyWithdraw;
+                if (balance <= 0) { exhaustedMonth = i; break; }
+            }
+            if (exhaustedMonth) {
+                let yearsLeft = Math.floor(exhaustedMonth / 12);
+                let monthsLeft = exhaustedMonth % 12;
+                document.getElementById('swpResult').innerHTML =
+                    `⚠️ Corpus exhausted after ${yearsLeft}y ${monthsLeft}m. Reduce withdrawal or increase corpus.`;
+            } else {
+                document.getElementById('swpResult').innerHTML =
+                    `✅ Corpus lasts ${years} years. Remaining balance: ${formatMoney(balance)}. Withdrawals sustainable.`;
+            }
+        }
+
+        // ─── BUDGET ───
+        function updateBudgetPlanner() {
+            let income = +document.getElementById('incomeInput').value || 0;
+            let cats = ['catRent', 'catGroceries', 'catTransport', 'catUtilities', 'catEntertainment', 'catSavings', 'catOther',
+                'catEMI'
+            ];
+            let vals = cats.map(id => +document.getElementById(id).value || 0);
+            let total = vals.reduce((a, b) => a + b, 0);
+            document.getElementById('totalExpenses').innerHTML = formatMoney(total);
+            let rem = income - total;
+            document.getElementById('remainingBalance').innerHTML = formatMoney(rem);
+            let adviceDiv = document.getElementById('budgetAdvice');
+            if (rem < 0) adviceDiv.innerHTML = '⚠️ Overspending! Reduce EMI or entertainment.';
+            else adviceDiv.innerHTML =
+            `✅ Surplus ${formatMoney(rem)} → increase SIP or emergency fund.`;
+            if (expenseChart) expenseChart.destroy();
+            let ctx = document.getElementById('expenseChart').getContext('2d');
+            expenseChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Rent', 'Groceries', 'Transport', 'Utilities', 'Entertainment', 'Savings', 'Other Ins',
+                        'EMI/Debt'
+                    ],
+                    datasets: [{ data: vals, backgroundColor: ['#1aa862', '#2f8b45', '#4cae5a', '#6bc46d', '#f5a623',
+                            '#e1f0da', '#c0e0b0', '#e05a5a'
+                        ] }]
+                },
+                options: { plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 10 } } } } }
+            });
+            refreshInclusionMetrics();
+            updateFinancialHealth();
+        }
+
+        // ─── FINANCIAL HEALTH ───
+        function updateFinancialHealth() {
+            let income = +document.getElementById('incomeInput').value || 1;
+            let savings = +document.getElementById('catSavings').value || 0;
+            let emi = +document.getElementById('catEMI').value || 0;
+            let totalPortfolio = stocksData.reduce((sum, s) => sum + (s.shares * s.price), 0);
+            let expense = +document.getElementById('totalExpenses').innerText.replace(/[^0-9.-]/g, '') || 0;
+            let savingsRate = (savings / income) * 100;
+            let debtToIncome = (emi / income) * 100;
+            let expenseRatio = (expense / income) * 100;
+            let investmentScore = Math.min(100, (totalPortfolio / (income * 6)) * 100);
+            let emergencyScore = Math.min(100, (savings / (expense / 2)) * 100);
+            let score = (savingsRate * 0.3) + (Math.max(0, 100 - debtToIncome) * 0.25) + (Math.max(0, 100 - expenseRatio) * 0.2) +
+                (investmentScore * 0.15) + (emergencyScore * 0.1);
+            score = Math.min(100, Math.max(0, score));
+            document.getElementById('healthScoreValue').innerHTML = Math.floor(score);
+            document.getElementById('healthScoreFill').style.width = score + "%";
+            document.getElementById('healthScoreLabel').textContent = Math.floor(score) + "/100";
+            let advice = "";
+            if (score < 40) advice = "⚠️ Critical: Reduce debt, build emergency fund.";
+            else if (score < 70) advice = "👍 Good start. Increase SIP and reduce EMI.";
+            else advice = "🌟 Excellent! Focus on wealth multiplication & early retirement.";
+            document.getElementById('healthDetailedAdvice').innerHTML = advice;
+            if (healthRadarChart) healthRadarChart.destroy();
+            let ctxRadar = document.getElementById('healthRadarChart').getContext('2d');
+            healthRadarChart = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Savings Rate %', 'Debt-to-Income %', 'Expense Ratio %', 'Investment Score',
+                        'Emergency Fund'
+                    ],
+                    datasets: [{
+                        label: 'Your Metrics',
+                        data: [savingsRate, debtToIncome, expenseRatio, investmentScore, emergencyScore],
+                        backgroundColor: 'rgba(15,125,74,0.10)',
+                        borderColor: '#1aa862',
+                        pointBackgroundColor: '#d4a853',
+                        pointBorderColor: '#d4a853'
+                    }]
+                },
+                options: {
+                    scales: { r: { beginAtZero: true, max: 100, ticks: { stepSize: 20, color: 'var(--chart-text)' },
+                            grid: { color: 'var(--chart-grid)' } } },
+                    plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 10 } } } }
+                }
+            });
+            document.getElementById('radarInsight').innerHTML =
+                `Savings ${savingsRate.toFixed(0)}% | Debt ${debtToIncome.toFixed(0)}% | Emergency ${emergencyScore.toFixed(0)}%`;
+        }
+
+        // ─── SMART RETIREMENT ───
+        function smartLifePlanner() {
+            let curr = +document.getElementById('smartCurrAge').value || 28,
+                ret = +document.getElementById('smartRetAge').value || 60,
+                currentSavings = +document.getElementById('currentRetSavings').value || 0,
+                dream = +document.getElementById('dreamCorpus').value || 35000000,
+                monthlySaveCap = +document.getElementById('catSavings').value || 8000;
+            let yearsLeft = ret - curr;
+            if (yearsLeft <= 0) { document.getElementById('smartPlannerResult').innerHTML = "⚠️ Retirement age must be > current age.";
+                return; }
+            let rateModerate = 0.09,
+                rateAgg = 0.13;
+            let moderateVal = currentSavings * Math.pow(1 + rateModerate, yearsLeft) + monthlySaveCap * 12 * ((Math.pow(1 +
+                rateModerate, yearsLeft) - 1) / rateModerate);
+            let aggressiveVal = currentSavings * Math.pow(1 + rateAgg, yearsLeft) + monthlySaveCap * 12 * ((Math.pow(1 + rateAgg,
+                yearsLeft) - 1) / rateAgg);
+            let progressPct = Math.min(100, (moderateVal / dream) * 100);
+            document.getElementById('retirementProgressFill').style.width = progressPct + "%";
+            let job = document.getElementById('jobProfile').value,
+                qual = document.getElementById('qualification').value;
+            let salaryTip = "";
+            if (job == "Salaried") salaryTip = `As a ${qual} professional, aim for salary growth 10-15% yearly.`;
+            else if (job == "Business") salaryTip = "Focus on scaling margins; side income via digital services.";
+            else salaryTip = "Upskill using Coursera/NSDC to boost earnings.";
+            if (dream > moderateVal) {
+                let deficit = dream - moderateVal;
+                let neededMonthly = deficit / (yearsLeft * 12);
+                salaryTip += ` Need extra ₹${neededMonthly.toFixed(0)}/month.`;
+            }
+            let timeStr = `${yearsLeft} years, ${(yearsLeft*12)%12} months`;
+            document.getElementById('smartPlannerResult').innerHTML =
+                `<strong>📊 With current savings: ₹${moderateVal.toFixed(0)} (9% return) | Aggressive: ₹${aggressiveVal.toFixed(0)} (13%)</strong><br>🎯 Target: ${formatMoney(dream)} | Progress ${progressPct.toFixed(0)}%<br>🕒 Time left: ${timeStr}.<br>💡 Required monthly top-up: ~${formatMoney(Math.max(0,(dream-moderateVal)/(yearsLeft*12)))}<br>${salaryTip}`;
+            document.getElementById('careerAdvice').innerHTML =
+                `✅ Advice: ${salaryTip} | Reduce EMI & increase SIP by 5% yearly.`;
+        }
+
+        // ─── DEBT ───
+        function debtSimulate() {
+            let debt = +document.getElementById('debtAmount').value || 0,
+                rate = +document.getElementById('debtRate').value || 0,
+                monthly = +document.getElementById('monthlyPayment').value || 1;
+            let mRate = rate / 12 / 100,
+                bal = debt,
+                months = 0,
+                totInt = 0;
+            while (bal > 0 && months < 600) { let int = bal * mRate;
+                totInt += int;
+                bal = bal + int - monthly;
+                months++; if (bal < 0) bal = 0; }
+            let years = Math.floor(months / 12),
+                remMonths = months % 12;
+            document.getElementById('payoffMonths').innerHTML = `${years}y ${remMonths}m`;
+            document.getElementById('totalInterestPaid').innerHTML = totInt.toFixed(2);
+        }
+
+        // ─── AFFORDABILITY ───
+        function checkAffordability() {
+            let loan = +document.getElementById('loanAmount').value || 0,
+                existing = +document.getElementById('existingObligation').value || 0,
+                income = +document.getElementById('incomeInput').value || 0;
+            let maxEligible = income * 0.5 - existing;
+            if (loan <= maxEligible) document.getElementById('affordabilityMsg').innerHTML =
+                `✅ You can afford ₹${loan} loan comfortably. Keep EMI <40% income.`;
+            else document.getElementById('affordabilityMsg').innerHTML =
+                `❌ Loan amount too high. Reduce by ₹${(loan-maxEligible).toFixed(0)} or increase income.`;
+        }
+
+        // ─── PORTFOLIO ───
+        function savePortfolio() { localStorage.setItem("finvista_portfolio", JSON.stringify(stocksData)); }
+
+        function loadPortfolio() { let p = localStorage.getItem("finvista_portfolio"); if (p) stocksData = JSON.parse(p);
+            else savePortfolio(); }
+
+        function updatePortfolioTable() {
+            let tbody = document.getElementById("portfolioBody");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            let totalVal = 0;
+            stocksData.forEach((s, idx) => {
+                let value = s.shares * s.price;
+                totalVal += value;
+                let change = (Math.random() * 6 - 3).toFixed(2);
+                let cls = change >= 0 ? "profit" : "loss";
+                tbody.innerHTML +=
+                    `<tr><td><strong>${s.symbol}</strong></td><td>${s.shares}</td><td>${s.price.toFixed(2)}</td><td>${value.toFixed(2)}</td><td class="${cls}">${change}%</td><td><button class="btn-danger removeStock" data-idx="${idx}" style="padding:2px 10px;font-size:0.7rem;">✕</button></td></tr>`;
+            });
+            document.getElementById("totalPortfolioVal").innerHTML = formatMoney(totalVal);
+            document.getElementById("portfolioCount").textContent = stocksData.length + " stocks";
+            document.querySelectorAll(".removeStock").forEach(btn => btn.addEventListener("click", (e) => {
+                let idx = btn.getAttribute("data-idx");
+                stocksData.splice(idx, 1);
+                savePortfolio();
+                updatePortfolioTable();
+                updateStockChart();
+                recordPortfolioHistory();
+                updateFinancialHealth();
+                showToast("Stock removed");
+            }));
+            recordPortfolioHistory();
+            updateFinancialHealth();
+        }
+
+        function addStock() {
+            let sym = document.getElementById("newStockSymbol").value.trim().toUpperCase();
+            let shares = +document.getElementById("newStockShares").value;
+            if (!sym || shares <= 0) return;
+            let price = Math.random() * 2000 + 500;
+            stocksData.push({ symbol: sym, shares: shares, price: price, hist: [price] });
+            savePortfolio();
+            updatePortfolioTable();
+            updateStockChart();
+            recordPortfolioHistory();
+            showToast(`Added ${sym}`);
+            updateFinancialHealth();
+        }
+
+        function refreshPrices() {
+            stocksData.forEach(s => { let change = (Math.random() * 6 - 3) / 100;
+                s.price = Math.max(10, s.price * (1 + change)); if (s.hist) s.hist.push(s.price); if (s.hist?.length > 15) s
+                    .hist.shift(); });
+            savePortfolio();
+            updatePortfolioTable();
+            updateStockChart();
+            recordPortfolioHistory();
+            updateFinancialHealth();
+            showToast("Prices refreshed");
+        }
+
+        function recordPortfolioHistory() {
+            let total = stocksData.reduce((sum, s) => sum + (s.shares * s.price), 0);
+            historySnapshots.push(total);
+            if (historySnapshots.length > 14) historySnapshots.shift();
+            if (portfolioHistoryChart) portfolioHistoryChart.destroy();
+            let ctx = document.getElementById('portfolioHistoryChart')?.getContext('2d');
+            if (ctx) portfolioHistoryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: historySnapshots.map((_, i) => i + 1),
+                    datasets: [{
+                        label: 'Portfolio Value (₹)',
+                        data: historySnapshots,
+                        borderColor: '#d4a853',
+                        backgroundColor: 'rgba(212,168,83,0.04)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 9 } } } },
+                    scales: { x: { grid: { color: 'var(--chart-grid)' } }, y: { grid: { color: 'var(--chart-grid)' },
+                            ticks: { color: 'var(--chart-text)' } } } }
+            });
+        }
+
+        function updateStockChart() {
+            let prices = stocksData.map(s => s.price);
+            if (stockIndexChart) stockIndexChart.destroy();
+            let ctx = document.getElementById('stockIndexChart')?.getContext('2d');
+            if (ctx) stockIndexChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stocksData.map(s => s.symbol),
+                    datasets: [{
+                        label: 'Price (₹)',
+                        data: prices,
+                        backgroundColor: prices.map(p => p > 2000 ? 'rgba(212,168,83,0.3)' :
+                            'rgba(26,168,98,0.3)'),
+                        borderColor: prices.map(p => p > 2000 ? '#d4a853' : '#1aa862'),
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: { plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 9 } } } },
+                    scales: { x: { grid: { color: 'var(--chart-grid)' } }, y: { grid: { color: 'var(--chart-grid)' },
+                            ticks: { color: 'var(--chart-text)' } } } }
+            });
+        }
+
+        // ─── MONTHLY RECORDS ───
+        function loadMonthlyRecords() {
+            let records = JSON.parse(localStorage.getItem("monthlyFinanceRecords") || "[]");
+            if (records.length === 0) {
+                let demoMar = { month: "2026-03", income: 48000, totalExpense: 38500, savings: 9500 };
+                let demoApr = { month: "2026-04", income: 50000, totalExpense: 41000, savings: 9000 };
+                records = [demoMar, demoApr];
+                localStorage.setItem("monthlyFinanceRecords", JSON.stringify(records));
+            }
+            let listDiv = document.getElementById('monthlyRecordsList');
+            listDiv.innerHTML = records.map(r =>
+                    `<div style="background:var(--glass-bg);border-radius:var(--radius-sm);padding:8px 14px;border:1px solid var(--border-light);font-size:0.8rem;color:var(--text-primary);">📅 ${r.month} | Income: ${currency}${r.income} | Expense: ${currency}${r.totalExpense} | Saved: <span style="color:var(--emerald-light);">${currency}${r.income - r.totalExpense}</span></div>`
+                )
+                .join('');
+            if (monthlyDoubleChart) monthlyDoubleChart.destroy();
+            let ctxM = document.getElementById('monthlyIncomeExpenseChart')?.getContext('2d');
+            if (ctxM) {
+                let labels = records.map(r => r.month);
+                let incomes = records.map(r => r.income);
+                let expenses = records.map(r => r.totalExpense);
+                monthlyDoubleChart = new Chart(ctxM, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Income (₹)',
+                            data: incomes,
+                            backgroundColor: 'rgba(26,168,98,0.5)',
+                            borderColor: '#1aa862',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }, {
+                            label: 'Expenses (₹)',
+                            data: expenses,
+                            backgroundColor: 'rgba(224,90,90,0.4)',
+                            borderColor: '#e05a5a',
+                            borderWidth: 1,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 10 } } } },
+                        scales: { x: { grid: { color: 'var(--chart-grid)' } }, y: { grid: { color: 'var(--chart-grid)' },
+                                ticks: { color: 'var(--chart-text)' } } }
+                    }
+                });
+            }
+        }
+
+        function saveMonthlyRecord() {
+            let month = document.getElementById('recordMonth').value;
+            if (!month) return;
+            let income = +document.getElementById('incomeInput').value || 0;
+            let cats = ['catRent', 'catGroceries', 'catTransport', 'catUtilities', 'catEntertainment', 'catOther', 'catEMI'];
+            let totalExpense = cats.reduce((a, id) => a + (+document.getElementById(id).value || 0), 0);
+            let savings = +document.getElementById('catSavings').value || 0;
+            let records = JSON.parse(localStorage.getItem("monthlyFinanceRecords") || "[]");
+            let idx = records.findIndex(r => r.month === month);
+            let newRecord = { month, income, totalExpense, savings };
+            if (idx >= 0) records[idx] = newRecord;
+            else records.push(newRecord);
+            localStorage.setItem("monthlyFinanceRecords", JSON.stringify(records));
+            showToast(`Saved ${month} data`);
+            loadMonthlyRecords();
+        }
+
+        // ─── INSIGHTS ───
+        function refreshInclusionMetrics() {
+            let inc = +document.getElementById('incomeInput').value || 1,
+                debt = +document.getElementById('debtAmount').value || 0,
+                savings = +document.getElementById('catSavings').value || 0;
+            let debtRatio = (debt / inc) * 100;
+            let savingsGap = Math.max(0, (1 - (savings / inc)) * 100);
+            let afterScore = Math.max(0, debtRatio * 0.4);
+            if (problemsChart) problemsChart.destroy();
+            let ctxProb = document.getElementById('problemsVsResultsChart')?.getContext('2d');
+            if (ctxProb) problemsChart = new Chart(ctxProb, {
+                type: 'bar',
+                data: {
+                    labels: ['Debt-to-Income %', 'Savings Gap %', 'Expense Ratio'],
+                    datasets: [{
+                        label: 'Current',
+                        data: [debtRatio, savingsGap, (1 - savings / inc) * 80],
+                        backgroundColor: 'rgba(224,90,90,0.4)',
+                        borderColor: '#e05a5a',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }, {
+                        label: 'After FinVista Plan',
+                        data: [afterScore, Math.max(10, savingsGap * 0.5), 20],
+                        backgroundColor: 'rgba(26,168,98,0.4)',
+                        borderColor: '#1aa862',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: 'var(--text-muted)', font: { size: 10 } } } },
+                    scales: { x: { grid: { color: 'var(--chart-grid)' } }, y: { grid: { color: 'var(--chart-grid)' },
+                            ticks: { color: 'var(--chart-text)' } } }
+                }
+            });
+            let adviceText = `📌 DO: Prioritize high-interest debt, increase SIP. DO NOT: take new EMI until debt<30% income. Reduce entertainment by 20% → emergency fund.`;
+            document.getElementById('problemSolutionText').innerHTML =
+                `<strong>🔍 Custom Solution</strong><br>${adviceText}<br>💰 Target: Save ${formatMoney(inc*0.2)} every month.`;
+        }
+
+        // ─── FACTS ───
+        const factsArr = [
+            "🌍 Over 1.4B unbanked adults, UPI changed India!",
+            "💰 Microfinance SHGs repayment 97%",
+            "📈 Rule of 72: 72/interest = years to double.",
+            "🏦 PMJDY: 500M+ accounts",
+            "🤝 Women-led SHGs boost inclusion 40%.",
+            "🇮🇳 India's mutual fund AUM crossed ₹50L Cr in 2024.",
+            "📊 Nifty 50 has delivered ~14% CAGR over 20 years.",
+            "💎 Gold has returned ~12% annualized over 15 years."
+        ];
+
+        function updateRandomFact() { document.getElementById('factMessage').innerHTML = factsArr[Math.floor(Math.random() *
+                factsArr.length)]; }
+
+        // ─── RESET ───
+        function resetAllData() { if (confirm("This will erase all data. Continue?")) { localStorage.clear();
+                location.reload(); } }
+
+        // ─── PARTICLES ───
+        function initParticles() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, particles = [];
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            class Particle {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.speedY = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.3 + 0.05;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x < 0 || this.x > w) this.speedX *= -1;
+                    if (this.y < 0 || this.y > h) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(212,168,83,${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update();
+                    p.draw(); });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(212,168,83,${0.05 * (1 - dist/120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // ─── REPORT GENERATION ───
+        function generateReportHTML() {
+            const income = +document.getElementById('incomeInput').value || 0;
+            const cats = ['catRent', 'catGroceries', 'catTransport', 'catUtilities', 'catEntertainment', 'catSavings', 'catOther',
+                'catEMI'
+            ];
+            const vals = cats.map(id => +document.getElementById(id).value || 0);
+            const totalExpense = vals.reduce((a, b) => a + b, 0);
+            const savings = vals[5] || 0;
+            const rem = income - totalExpense;
+            const healthScore = document.getElementById('healthScoreValue').innerText || '0';
+            const portfolioVal = stocksData.reduce((sum, s) => sum + (s.shares * s.price), 0);
+            const ciFuture = document.getElementById('ciFutureVal').innerText || '--';
+            const siFuture = document.getElementById('siFutureVal').innerText || '--';
+            const swpResult = document.getElementById('swpResult').innerText || '--';
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            let stockRows = '';
+            stocksData.forEach(s => {
+                stockRows +=
+                    `<tr><td>${s.symbol}</td><td>${s.shares}</td><td>${currency}${s.price.toFixed(2)}</td><td>${currency}${(s.shares * s.price).toFixed(2)}</td></tr>`;
+            });
+
+            return `
+                <div style="font-family: 'Inter', sans-serif; max-width: 800px; margin: 0 auto; padding: 30px; background: #ffffff; color: #1a2c2e; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08);">
+                    <div style="border-bottom: 2px solid #0f7d4a; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h1 style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(135deg, #0f7d4a, #d4a853); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">FinVista Royal</h1>
+                            <p style="margin: 4px 0 0; color: #6b7a73; font-size: 0.9rem;">Financial Health Report</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="margin: 0; color: #6b7a73; font-size: 0.85rem;">Generated: ${dateStr}</p>
+                            <p style="margin: 0; color: #6b7a73; font-size: 0.85rem;">User: ${currentUser || 'Guest'}</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                        <div style="background: #f6faf8; border-radius: 12px; padding: 16px; border-left: 3px solid #0f7d4a;">
+                            <p style="margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7a73;">Financial Health Score</p>
+                            <p style="margin: 4px 0 0; font-size: 2rem; font-weight: 800; color: #d4a853;">${healthScore}/100</p>
+                        </div>
+                        <div style="background: #f6faf8; border-radius: 12px; padding: 16px; border-left: 3px solid #d4a853;">
+                            <p style="margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7a73;">Portfolio Value</p>
+                            <p style="margin: 4px 0 0; font-size: 2rem; font-weight: 800; color: #0f7d4a;">${currency}${portfolioVal.toFixed(2)}</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 0 0 12px; color: #1a2c2e;">💰 Budget Summary</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 10px 14px;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">Monthly Income</p>
+                                <p style="margin: 2px 0 0; font-size: 1.1rem; font-weight: 600; color: #0f7d4a;">${currency}${income.toFixed(2)}</p>
+                            </div>
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 10px 14px;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">Total Expenses</p>
+                                <p style="margin: 2px 0 0; font-size: 1.1rem; font-weight: 600; color: #e05a5a;">${currency}${totalExpense.toFixed(2)}</p>
+                            </div>
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 10px 14px; grid-column: 1/-1;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">Remaining / Surplus</p>
+                                <p style="margin: 2px 0 0; font-size: 1.1rem; font-weight: 600; color: ${rem >= 0 ? '#0f7d4a' : '#e05a5a'};">
+                                    ${currency}${rem.toFixed(2)} ${rem >= 0 ? '✅' : '⚠️'}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 0 0 12px; color: #1a2c2e;">📈 Portfolio Holdings</h3>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid #eaf1ed;">
+                                    <th style="text-align: left; padding: 8px 4px; color: #6b7a73; font-weight: 500;">Stock</th>
+                                    <th style="text-align: left; padding: 8px 4px; color: #6b7a73; font-weight: 500;">Shares</th>
+                                    <th style="text-align: left; padding: 8px 4px; color: #6b7a73; font-weight: 500;">Price</th>
+                                    <th style="text-align: left; padding: 8px 4px; color: #6b7a73; font-weight: 500;">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${stockRows}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin: 0 0 12px; color: #1a2c2e;">🧮 Wealth Calculators</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 12px 14px;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">Compound Interest (Future)</p>
+                                <p style="margin: 2px 0 0; font-size: 1rem; font-weight: 600; color: #d4a853;">${ciFuture}</p>
+                            </div>
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 12px 14px;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">Simple Interest (Future)</p>
+                                <p style="margin: 2px 0 0; font-size: 1rem; font-weight: 600; color: #d4a853;">${siFuture}</p>
+                            </div>
+                            <div style="background: #f6faf8; border-radius: 8px; padding: 12px 14px; grid-column: 1/-1;">
+                                <p style="margin: 0; font-size: 0.7rem; text-transform: uppercase; color: #6b7a73;">SWP Status</p>
+                                <p style="margin: 2px 0 0; font-size: 0.95rem; color: #1a2c2e;">${swpResult}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #e5f5e6; border-radius: 12px; padding: 16px; border-left: 3px solid #d4a853;">
+                        <p style="margin: 0; font-size: 0.85rem; color: #1e4a3b;">
+                            <strong>💡 Insight:</strong> Based on your financial data, focus on maintaining a savings rate above 20% and keeping debt below 30% of income for optimal wealth growth.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 20px; border-top: 1px solid #eaf1ed; padding-top: 16px; text-align: center;">
+                        <p style="margin: 0; font-size: 0.75rem; color: #6b7a73;">— FinVista Royal · AI-powered financial intelligence —</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function downloadReport() {
+            const html = generateReportHTML();
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `FinVista_Report_${new Date().toISOString().slice(0,10)}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('📄 Report downloaded successfully!');
+        }
+
+        function previewReport() {
+            const preview = document.getElementById('reportPreview');
+            const html = generateReportHTML();
+            preview.innerHTML = html;
+            preview.style.display = 'block';
+            preview.scrollTop = 0;
+        }
+
+        // ─── DOM READY ───
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+            let sess = localStorage.getItem("finvista_current_user");
+            if (sess) currentUser = sess;
+
+            let dark = localStorage.getItem('finvista_dark');
+            if (dark === 'false') {
+                document.body.classList.remove('dark');
+                document.getElementById('darkModeToggle').checked = false;
+            } else {
+                document.body.classList.add('dark');
+                document.getElementById('darkModeToggle').checked = true;
+            }
+
+            updateAuthUI();
+            updateBudgetPlanner();
+            debtSimulate();
+            smartLifePlanner();
+            loadPortfolio();
+            updatePortfolioTable();
+            updateStockChart();
+            recordPortfolioHistory();
+            refreshInclusionMetrics();
+            loadMonthlyRecords();
+            updateFinancialHealth();
+            initParticles();
+
+            setInterval(() => {
+                let tips = ["Start SIP with ₹500", "Index funds outperform 80% active funds", "Reduce EMI & increase tenure",
+                    "Emergency fund = 6 months expenses", "Rule of 72: double money faster"
+                ];
+                document.getElementById('dailyTip').innerHTML =
+                    `💡 ${tips[Math.floor(Math.random()*tips.length)]}`;
+            }, 22000);
+
+            updateRandomFact();
+
+            // ─── SIDEBAR ───
+            document.getElementById('sidebarToggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('open');
+                document.getElementById('sidebarBackdrop').classList.toggle('active');
+            });
+            document.getElementById('sidebarBackdrop').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarBackdrop').classList.remove('active');
+            });
+
+            // ─── SETTINGS ───
+            document.getElementById('settingsLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('settingsModal').style.display = 'flex';
+            });
+            document.getElementById('closeSettingsBtn').addEventListener('click', () => {
+                document.getElementById('settingsModal').style.display = 'none';
+            });
+            document.getElementById('resetAllDataBtn').addEventListener('click', resetAllData);
+
+            // ─── DARK MODE ───
+            document.getElementById('darkModeToggle').addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.body.classList.add('dark');
+                    localStorage.setItem('finvista_dark', 'true');
+                } else {
+                    document.body.classList.remove('dark');
+                    localStorage.setItem('finvista_dark', 'false');
+                }
+                updateBudgetPlanner();
+                updateFinancialHealth();
+                refreshInclusionMetrics();
+                loadMonthlyRecords();
+                updateStockChart();
+                recordPortfolioHistory();
+            });
+
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                let cb = document.getElementById('darkModeToggle');
+                cb.checked = !cb.checked;
+                cb.dispatchEvent(new Event('change'));
+            });
+
+            // ─── CURRENCY ───
+            document.getElementById('currencySelect').addEventListener('change', (e) => {
+                currency = e.target.value;
+                updateBudgetPlanner();
+                calcCompoundInterest();
+                calcSimpleInterest();
+                updatePortfolioTable();
+                loadMonthlyRecords();
+                updateFinancialHealth();
+            });
+
+            // ─── AUTH ───
+            document.getElementById('doSignInBtn').addEventListener('click', () => {
+                let un = document.getElementById('loginUsername').value,
+                    pw = document.getElementById('loginPassword').value;
+                if (users.find(u => u.username === un && u.password === pw)) { setSession(un);
+                    closeModal();
+                    showToast(`Welcome ${un}`); } else alert("Invalid credentials");
+            });
+            document.getElementById('doSignUpBtn').addEventListener('click', () => {
+                let un = document.getElementById('signupUsername').value,
+                    pw = document.getElementById('signupPassword').value;
+                if (!un || pw.length < 4) return;
+                if (users.find(u => u.username === un)) alert("Username exists");
+                else { users.push({ username: un, password: pw });
+                    saveUsers();
+                    setSession(un);
+                    closeModal();
+                    showToast("Registered! Welcome aboard."); }
+            });
+            document.getElementById('showSignUpLink').addEventListener('click', () => openModal('signup'));
+            document.getElementById('showSignInLink').addEventListener('click', () => openModal('signin'));
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => {
+                if (e.target === document.getElementById('authModal')) closeModal();
+                if (e.target === document.getElementById('settingsModal')) document.getElementById('settingsModal').style
+                    .display = 'none';
+            });
+
+            // ─── BUDGET ───
+            document.getElementById('updateBudgetBtn').addEventListener('click', updateBudgetPlanner);
+            document.getElementById('resetBudgetBtn').addEventListener('click', () => {
+                document.getElementById('incomeInput').value = 52000;
+                document.getElementById('catRent').value = 15000;
+                document.getElementById('catGroceries').value = 7000;
+                document.getElementById('catTransport').value = 3000;
+                document.getElementById('catUtilities').value = 2500;
+                document.getElementById('catEntertainment').value = 3000;
+                document.getElementById('catSavings').value = 8000;
+                document.getElementById('catOther').value = 2500;
+                document.getElementById('catEMI').value = 4000;
+                updateBudgetPlanner();
+                updateFinancialHealth();
+                showToast("Budget reset to defaults");
+            });
+
+            // ─── CALCULATORS ───
+            document.getElementById('calcCIBtn').addEventListener('click', calcCompoundInterest);
+            document.getElementById('calcSIBtn').addEventListener('click', calcSimpleInterest);
+            document.getElementById('calcSWPBtn').addEventListener('click', calcSWP);
+
+            // ─── RETIREMENT ───
+            document.getElementById('runSmartPlannerBtn').addEventListener('click', smartLifePlanner);
+
+            // ─── DEBT ───
+            document.getElementById('simulateDebtBtn').addEventListener('click', debtSimulate);
+            document.getElementById('checkAffordabilityBtn').addEventListener('click', checkAffordability);
+
+            // ─── STOCKS ───
+            document.getElementById('refreshMarketBtn').addEventListener('click', refreshPrices);
+            document.getElementById('refreshMarketBtn2').addEventListener('click', refreshPrices);
+            document.getElementById('addStockBtn').addEventListener('click', addStock);
+
+            // ─── INSIGHTS ───
+            document.getElementById('newFactBtn').addEventListener('click', updateRandomFact);
+            document.getElementById('refreshInclusionChart').addEventListener('click', refreshInclusionMetrics);
+
+            // ─── MONTHLY ───
+            document.getElementById('saveMonthlyRecordBtn').addEventListener('click', saveMonthlyRecord);
+            document.getElementById('viewRecordsBtn').addEventListener('click', loadMonthlyRecords);
+
+            // ─── HEALTH ───
+            document.getElementById('refreshHealthBtn').addEventListener('click', updateFinancialHealth);
+
+            // ─── REPORT ───
+            document.getElementById('downloadReportBtn').addEventListener('click', downloadReport);
+            document.getElementById('previewReportBtn').addEventListener('click', previewReport);
+
+            // ─── HERO STATS ───
+            document.getElementById('heroTotalWealth').textContent = formatMoney(stocksData.reduce((sum, s) => sum + (s
+                .shares * s.price), 0) + 850000);
+
+            const hour = new Date().getHours();
+            let greet = "Good evening";
+            if (hour < 12) greet = "Good morning";
+            else if (hour < 17) greet = "Good afternoon";
+            document.getElementById('greetingText').textContent = `${greet}, investor. Your portfolio is up 2.4% today.`;
+        });
+
+        // ─── Chatbase (preserved) ───
+        (function() {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] }
+                    window.chatbase.q.push(arguments) };
+                window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target
+                            .q } return (...args) => target(prop, ...args) } });
+            }
+            const onLoad = function() {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "szUDLawiPobP3Nmswr20-";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script);
+            };
+            if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) }
+        })();
+    </script>
+
+</body>
+</html>
